@@ -122,6 +122,3 @@ Contributions to the BookManager project are welcome! Feel free to fork the repo
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
-## Contact
-
-For any questions or suggestions, please contact `your-email@example.com` or create an issue on the GitHub repository.
