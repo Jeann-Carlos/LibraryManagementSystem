@@ -135,10 +135,11 @@ public class BookManagerGUI extends JFrame {
     }
 
     private boolean validateISBN(String isbn) {
-        // Regex pattern to match either 10-digit ISBN or 13-digit ISBN
-        String isbnPattern = "^(?:978|979)[\\ |-]?\\d{1,5}[\\ |-]?\\d{1,7}[\\ |-]?\\d{1,6}[\\ |-]?\\d$";
+        String isbnPattern = "^(?:\\d{9}[\\dX]|(?:978|979)[\\ |-]?\\d{1,5}[\\ |-]?\\d{1,7}[\\ |-]?\\d{1,6}[\\ |-]?\\d)$";
         return isbn.matches(isbnPattern);
     }
+
+
 
     private void searchBook(JLabel searchResultLabel) {
         String title = searchField.getText();
