@@ -10,7 +10,7 @@ public class Book {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
-        this.isBorrowed = false;
+        this.isBorrowed = isBorrowed;
     }
 
     public String getTitle() {

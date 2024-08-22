@@ -48,6 +48,7 @@ public class DatabaseManager {
             pstmt.setString(3, book.getISBN());
             pstmt.setInt(4, book.isBorrowed() ? 1 : 0);
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -60,7 +61,13 @@ public class DatabaseManager {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, isBorrowed ? 1 : 0);
             pstmt.setString(2, isbn);
-            pstmt.executeUpdate();
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Update successful!");
+            } else {
+                System.out.println("No rows updated.");
+            }
+            conn.commit();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -73,12 +80,13 @@ public class DatabaseManager {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, isbn);
             ResultSet rs = pstmt.executeQuery();
+            boolean isBorrowed = rs.getBoolean("isBorrowed");
             if (rs.next()) {
                 return new Book(
                         rs.getString("title"),
                         rs.getString("author"),
                         rs.getString("isbn"),
-                        rs.getInt("isBorrowed") == 1
+                        rs.getBoolean("isBorrowed")
                 );
             }
         } catch (SQLException e) {
@@ -96,11 +104,12 @@ public class DatabaseManager {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
+                boolean isBorrowed = rs.getBoolean("isBorrowed");
                 books.add(new Book(
                         rs.getString("title"),
                         rs.getString("author"),
                         rs.getString("isbn"),
-                        rs.getInt("isBorrowed") == 1
+                        rs.getBoolean("isBorrowed")
                 ));
             }
         } catch (SQLException e) {
