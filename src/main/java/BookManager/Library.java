@@ -20,14 +20,16 @@ public class Library {
     }
 
     // Search for a book by title in the library (from database)
-    public Book searchBookByTitle(String title) {
+    public Book searchBook(String string) {
         for (Book book : getBooks()) {
-            if (book.getTitle().equalsIgnoreCase(title)) {
+            if (book.getTitle().equalsIgnoreCase(string) || book.getAuthor().equalsIgnoreCase(string)) {
                 return book;
             }
         }
         return null;
     }
+
+
 
     // Borrow a book by ISBN
     public void borrowBook(String isbn, String userId) {
