@@ -54,6 +54,27 @@ public class DatabaseManager {
         }
     }
 
+    // Example search by author
+    public List<Book> searchBooksByAuthor(String author) {
+        List<Book> books = new ArrayList<>();
+        String sql = "SELECT * FROM books WHERE author LIKE ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + author + "%");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                books.add(new Book(
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("isbn"),
+                        rs.getBoolean("isBorrowed")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return books;
+    }
     // Update the borrowed status of a book
     public void updateBookStatus(String isbn, boolean isBorrowed) {
         String sql = "UPDATE books SET isBorrowed = ? WHERE isbn = ?";

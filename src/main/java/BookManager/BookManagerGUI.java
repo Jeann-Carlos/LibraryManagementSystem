@@ -1,11 +1,9 @@
 package BookManager;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class BookManagerGUI extends JFrame {
     private Library library;
@@ -48,9 +46,9 @@ public class BookManagerGUI extends JFrame {
         panel.add(addBookButton);
 
         // Search Section
-        JLabel searchLabel = new JLabel("Search for a Book by Title:");
+        JLabel searchLabel = new JLabel("Search for a Book:");
         searchField = new JTextField(20);
-        searchField.setBorder(BorderFactory.createTitledBorder("Book Title"));
+        searchField.setBorder(BorderFactory.createTitledBorder("Book Tittle /  Author"));
         JButton searchButton = new JButton("Search");
         JLabel searchResultLabel = new JLabel();
 
@@ -142,14 +140,16 @@ public class BookManagerGUI extends JFrame {
 
 
     private void searchBook(JLabel searchResultLabel) {
-        String title = searchField.getText();
-        Book book = library.searchBookByTitle(title);
+        String bookstring = searchField.getText();
+        Book book = library.searchBook(bookstring);
         if (book != null) {
             searchResultLabel.setText("Found: " + book.toString());
         } else {
             searchResultLabel.setText("Book not found.");
         }
     }
+
+
 
     private void borrowBook() {
         String isbn = borrowIsbnField.getText();
